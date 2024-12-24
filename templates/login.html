@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<head>
+<title>Login Form Design</title>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body> 
+    <div class="box">
+       
+    <img src="{{ url_for('static', filename='images/user.png') }}" class="user">
+        <h1>Login Here</h1>
+        <form name="myform" method="POST" action="{{ url_for('login') }}">
+            <p>Username</p>
+            <input type="text" id="uname1" name="uname1" placeholder="Enter Username " required="">
+            <p>Password</p>
+            <input type="password" id="upswd1" name="upswd1" placeholder="Enter Password" required="">
+            <input type="submit" name="" value="Login">
+            <br><br>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            <div class="flash-messages">
+            {% for category, message in messages %}
+                <div class="{{ category }}">{{ message }}</div>
+            {% endfor %}
+            </div>
+            {% endif %}
+            {% endwith %}
+            <br><br>
+            <a href="{{ url_for('register') }}">Register for new account ?</a>
+        </form>
+        
+    </div>
+    
+</body>
+<style>
+    body {
+      background: url("{{ url_for('static', filename='images/back.jpg') }}") no-repeat center center fixed;
+      background-size: cover; /* Ensure the background image covers the entire viewport */
+    }
+</style>  
+</html>

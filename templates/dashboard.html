@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+  </head>
+  <body class="sidebar-open">
+    <nav class="navbar">
+      <button id="sidebarToggle" class="sidebar-toggle">
+        <i class="bx bx-menu"></i>
+      </button>
+      <div class="search_bar">
+        <input type="text" placeholder="Search" />
+      </div>
+      <div class="navbar_content">
+        <i class="bi bi-grid"></i>
+        <i class='bx bx-sun' id="darkLight"></i>
+        <div class="notification-icon">
+          <i class='bx bx-bell' id="notificationBell"></i>
+          {% if upcoming_bills_count > 0 %}
+            <span class="notification-badge" id="notificationCount">{{ upcoming_bills_count }}</span>
+          {% endif %}
+        </div>
+        <img src="{{ url_for('static', filename='images/profile.jpg') }}" alt="" class="profile" />
+      <div id="notificationModal" class="modal">
+          <div class="modal-content">
+              <span class="close-button" id="closeModal">&times;</span>
+              <h3>Upcoming Bills</h3>
+              <ul id="billDetails">
+                  <li>No upcoming bills</li>
+              </ul>
+          </div>
+      </div>
+    </nav>
+    <nav class="sidebar">
+      <div class="menu_content">
+        <ul class="menu_items">
+          <div class="menu_title menu_editor"></div>
+          <li class="item">
+            <a href="#" class="nav_link" id="dashboardLink">
+              <span class="navlink_icon">
+                <i class="bx bx-grid-alt"></i>
+              </span>
+              <span class="navlink">DashBoard</span>
+            </a>
+          </li>
+          <li class="item">
+            <a href="#" class="nav_link" id="balancesLink">
+              <span class="navlink_icon">
+                <i class="bx bxs-wallet"></i>
+              </span>
+              <span class="navlink" >Balances</span>
+            </a>
+          </li>
+          <div id="accountModal" class="modal">
+            <div class="modal-content">
+              <span class="close-btn">&times;</span>
+              <img src="{{ url_for('static', filename='images/card.jpg') }}" alt="" class="card"/>
+              <form id="accountForm" method="POST" action="{{ url_for('add_account') }}">
+                <label for="cardNumber">Card Number</label>
+                <input type="text" name="cardNumber" id="cardNumber" placeholder="XXXX-XXXX-XXXX-XXXX" required>
+                <label for="cardName">Card Name</label>
+                <input type="text" name="cardName" id="cardName" placeholder="Enter card name" required>
+                <label for="expiryDate">Expiry Date</label>
+                <input type="month" name="expiryDate" id="expiryDate" required>
+                <label for="cvv">CVV</label>
+                <input type="password" name="cvv" id="cvv" placeholder="Enter CVV" required>
+                <label for="amount">Amount</label>
+                <input type="text" name="amount" id="amount" placeholder="Enter Amount" required>
+                <button type="submit" class="btn-primary">Add Account</button>
+            </form>
+            </div>
+          </div>
+          <li class="item">
+            <a href="#" class="nav_link" id="transactionsLink">
+              <span class="navlink_icon">
+                <i class="bx bx-transfer-alt"></i>
+              </span>
+              <span class="navlink">Transactions</span>
+            </a>
+          </li>
+          <div id="transactionModalWindow" class="transaction-modal">
+              <div class="transaction-modal-content">
+                  <span class="transaction-close-btn" onclick="closeTransactionModal()">&times;</span>
+                  <form action="{{ url_for('add_transaction') }}" method="POST">
+                      <label for="cardNumber">Card Number:</label>
+                      <input type="text" id="cardNumber" name="cardNumber" placeholder="cardNumber" required>
+                      <label for="transactionType">Transaction Type:</label>
+                      <select id="transactionType" name="transactionType" required>
+                          <option value="credit">Credit</option>
+                          <option value="debit">Debit</option>
+                      </select>
+                      <label for="amount">Amount:</label>
+                      <input type="number" id="amount" name="amount" placeholder="amount" required>
+                      <label for="transactionDate">Transaction Date:</label>
+                      <input type="date" id="transactionDate" name="transactionDate" required>
+                      <label for="goal">Goal:</label>
+                      <input type="text" id="goal" name="goal" placeholder="goal" required>
+                      <input type="submit" value="Add Transaction">
+                  </form>    
+              </div>
+          </div>
+          <li class="item">
+            <a href="#" class="nav_link" id="billsLink">
+              <span class="navlink_icon">
+                <i class="bx bx-receipt"></i>
+              </span>
+              <span class="navlink">Bills</span>
+            </a>
+          </li>
+          <div id="billModal" class="bill-modal">
+            <div class="bill-modal-content">
+                <span class="close-btn">&times;</span>
+                <h2>Add Bill</h2>
+                <form method="POST" action="{{ url_for('add_bill') }}">
+                  <h3>Add New Bill</h3>
+                  <label for="bill_name">Bill Name:</label>
+                  <input type="text" id="bill_name" name="bill_name" required>
+                  <label for="item_description">Item Description:</label>
+                  <textarea id="item_description" name="item_description" required></textarea>
+                  <label for="due_date">Due Date:</label>
+                  <input type="date" id="due_date" name="due_date" required><br>
+                  <label for="amount">Amount:</label>
+                  <input type="number" step="0.01" id="amount" name="amount" required>
+                  <button type="submit">Add Bill</button>
+                </form>
+            </div>
+          </div>
+          <li class="item">
+            <a href="#" class="nav_link" id="expensesLink">
+              <span class="navlink_icon">
+                <i class="bx bxs-credit-card"></i>
+              </span>
+              <span class="navlink">Expenses</span>
+            </a>
+          </li>
+          <li class="item">
+            <a href="#" class="nav_link">
+              <span class="navlink_icon">
+                <i class="bx bx-bullseye"></i>
+              </span>
+              <span class="navlink">Goals</span>
+            </a>
+          </li>
+          <div id="goalModal" class="goal-modal">
+            <div class="goal-modal-content">
+              <form action="{{ url_for('add_goal') }}" method="POST">
+                <label for="goal_name">Goal Name:</label>
+                <input type="text" name="goal_name" required>
+                <label for="target_amount">Target Amount:</label>
+                <input type="number" step="0.01" name="target_amount" required>
+                <button type="submit">Set Goal</button>
+            </form>
+            </div> 
+          </div>           
+        </ul>
+      </div>
+    </nav>
+    <main class="content">
+      <div id="expensesContent" class="expenses-content">
+        <h2>Expense Breakdown by Category</h2>
+        {% if graph_url %}
+          <img src="data:image/png;base64,{{ graph_url }}" alt="Expenses Graph">
+        {% else %}
+          <p>No expenses data available for display.</p>
+        {% endif %}
+      </div>
+      <div id="dashboardContent" class="dashboard-content">
+        <h3>Your Accounts</h3>
+        {% if accounts %}
+        <table id="accountsTable">
+        <thead>
+            <tr>
+                <th>Card Number</th>
+                <th>Card Name</th>
+                <th>Amount</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for account in accounts %}
+            <tr data-card-number="{{ account[0] }}">
+                <td>{{ account[0] }}</td>
+                <td>{{ account[1] }}</td>
+                <td>{{ account[2] }}</td>
+                <td>
+                    <button class="delete-btn">Delete</button>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+        {% else %}
+        <p class="no-accounts-message">No Accounts available. Add a new account to get started.</p>
+        {% endif %}
+      </div>
+    <button id="addAccountBtn" class="add-account-btn">Add Account</button>
+    <div id="transactionContent" class="transaction-content">
+      <h3>Your Transactions</h3>
+      <form method="POST" action="{{ url_for('delete_selected_transactions') }}">
+        {% if transactions %}
+          <table id="transactionsTable" border="1" cellspacing="0" cellpadding="5">
+            <thead>
+              <tr>
+                <th>
+                  <input type="checkbox" id="selectAll" onclick="toggleAll(this)">
+                </th>
+                <th>ID</th>
+                <th>Card Number</th>
+                <th>Goal</th>
+                <th>Transaction Type</th>
+                <th>Amount</th>
+                <th>Transaction Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for transaction in transactions %}
+              <tr>
+                <td>
+                  <input type="checkbox" name="transaction_ids" value="{{ transaction[0] }}">
+                </td>
+                <td>{{ transaction[0] }}</td> 
+                <td>{{ transaction[1] }}</td> 
+                <td>{{ transaction[2] }}</td> 
+                <td>{{ transaction[3] }}</td> 
+                <td>{{ transaction[4] }}</td>
+                <td>{{ transaction[5] }}</td> 
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          <button type="submit" class="delete-button">Delete Selected</button> 
+        {% else %}
+          <p class="no-accounts-message">No transactions available. Add a new transaction to get started.</p>
+        {% endif %}
+      </form>
+    </div>    
+    <button id="openTransactionModalBtn" class="open-transaction-modal-btn" onclick="openTransactionModal()">Add Transaction</button>
+    <div class="bill-content" id="billContent">
+      <h3>Bills</h3>
+      {% if bills %}
+      <table id="billsTable" border="1" cellspacing="0" cellpadding="5">
+        <thead>
+          <tr>
+            <th>Bill Name</th>
+            <th>Item Description</th>
+            <th>Due Date</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for bill in bills %}
+            <tr>
+              <td>{{ bill[1] }}</td>
+              <td>{{ bill[2] }}</td>
+              <td>{{ bill[3] }}</td>
+              <td>{{ bill[4] }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+          <p class="no-accounts-message">No Bills available. Add a new bills to get started.</p>
+      {% endif %}
+    </div>
+    {% if active_goal %}
+    <div class="goal-section">
+        <h3>Current Goal</h3>
+        <p><strong>{{ active_goal[0] }}</strong></p>
+        <p>Target Amount: ${{ active_goal[1] }}</p>
+        <p>Progress: ${{ active_goal[2] }} / ${{ active_goal[1] }}</p>
+        <p>Status: {{ "Achieved" if active_goal[3] else "In Progress" }}</p>
+    </div>
+    {% else %}
+    <p>No active goals. Set a new one!</p>
+    {% endif %}
+    <button id="addBillBtn" class="add-btn">Add Bill</button>
+    </main>
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}">
+    </script>
+  </body>
+</html>
