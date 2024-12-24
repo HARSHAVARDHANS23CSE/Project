@@ -137,24 +137,13 @@
             </a>
           </li>
           <li class="item">
-            <a href="#" class="nav_link">
+            <a href="#" class="nav_link" id="goalsLink">
               <span class="navlink_icon">
                 <i class="bx bx-bullseye"></i>
               </span>
               <span class="navlink">Goals</span>
             </a>
-          </li>
-          <div id="goalModal" class="goal-modal">
-            <div class="goal-modal-content">
-              <form action="{{ url_for('add_goal') }}" method="POST">
-                <label for="goal_name">Goal Name:</label>
-                <input type="text" name="goal_name" required>
-                <label for="target_amount">Target Amount:</label>
-                <input type="number" step="0.01" name="target_amount" required>
-                <button type="submit">Set Goal</button>
-            </form>
-            </div> 
-          </div>           
+          </li>          
         </ul>
       </div>
     </nav>
@@ -264,18 +253,29 @@
       {% else %}
           <p class="no-accounts-message">No Bills available. Add a new bills to get started.</p>
       {% endif %}
+    </div><!-- Goal form inside main content -->
+    <div id="goalModal" class="goal-modal">
+      <div class="goal-modal-content">
+        <form action="{{ url_for('add_goal') }}" method="POST">
+          <label for="goal_name">Goal Name:</label>
+          <input type="text" name="goal_name" required>
+          <label for="target_amount">Target Amount:</label>
+          <input type="number" step="0.01" name="target_amount" required>
+          <button type="submit">Set Goal</button>
+        </form>
+      </div> 
+      {% if active_goal %}
+      <div id="goalSection" class="goal-section">
+          <h3>Current Goal</h3>
+          <p><strong>{{ active_goal[0] }}</strong></p>
+          <p>Target Amount: ${{ active_goal[1] }}</p>
+          <p>Progress: ${{ active_goal[2] }} / ${{ active_goal[1] }}</p>
+          <p>Status: {{ "Achieved" if active_goal[3] else "In Progress" }}</p>
+      </div>
+      {% else %}
+      <p>No active goals. Set a new one!</p>
+      {% endif %}
     </div>
-    {% if active_goal %}
-    <div class="goal-section">
-        <h3>Current Goal</h3>
-        <p><strong>{{ active_goal[0] }}</strong></p>
-        <p>Target Amount: ${{ active_goal[1] }}</p>
-        <p>Progress: ${{ active_goal[2] }} / ${{ active_goal[1] }}</p>
-        <p>Status: {{ "Achieved" if active_goal[3] else "In Progress" }}</p>
-    </div>
-    {% else %}
-    <p>No active goals. Set a new one!</p>
-    {% endif %}
     <button id="addBillBtn" class="add-btn">Add Bill</button>
     </main>
     <script src="{{ url_for('static', filename='js/dashboard.js') }}">

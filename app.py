@@ -99,6 +99,7 @@ def register():
 
 
 # Route for user login
+@app.route('/', methods=['GET', 'POST'])
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':

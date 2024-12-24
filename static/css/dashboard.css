@@ -749,7 +749,7 @@ body {
 /* Styling the image (if graph is displayed) */
 .expenses-content img {
   display: block;
-  max-width: 100%; /* Responsive image */
+  max-width: 70%; /* Responsive image */
   margin: 0 auto;  /* Center the image */
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for images */
@@ -1020,4 +1020,65 @@ body.sidebar-open .sidebar {
 .content.with-sidebar {
   margin-left: 250px; /* Adjust this based on the sidebar width */
   transition: margin-left 0.3s ease;
+}
+/* Hide the goal form by default */
+.goal-modal {
+  display: none; /* Hide the form */
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 100px;
+}
+
+.goal-modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.goal-modal form {
+  display: flex;
+  flex-direction: column;
+}
+
+.goal-modal label {
+  margin-bottom: 8px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.goal-modal input[type="text"],
+.goal-modal input[type="number"] {
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.goal-modal button {
+  padding: 12px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.goal-modal button:hover {
+  background-color: #45a049;
+}
+
+/* Add responsiveness */
+@media (max-width: 768px) {
+  .goal-modal {
+    width: 90%;
+  }
+}
+#goalModal p{
+  text-align: center;
 }

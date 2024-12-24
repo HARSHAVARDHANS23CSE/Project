@@ -200,6 +200,25 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
+  const sidebarLinks = document.querySelectorAll('.nav_link');
+  const goalModal = document.getElementById('goalModal');
+  goalModal.style.display = 'none';
+  sidebarLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      sidebarLinks.forEach(link => link.classList.remove('active'));
+      link.classList.add('active');
+      if (link.id === 'goalsLink') {
+        goalModal.style.display = 'block';
+        goalModal.classList.add('fade-in');
+      } else {
+        goalModal.classList.remove('fade-in');
+        goalModal.style.display = 'none';
+      }
+    });
+  });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
   const transactionsTable = document.getElementById('transactionsTable');
   const selectAllCheckbox = document.getElementById('selectAll');
   const deleteButton = document.querySelector('.delete-button');
