@@ -217,59 +217,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
-
-document.addEventListener('DOMContentLoaded', () => {
-  const transactionsTable = document.getElementById('transactionsTable');
-  const selectAllCheckbox = document.getElementById('selectAll');
-  const deleteButton = document.querySelector('.delete-button');
-  if (transactionsTable) {
-    const transactionRows = transactionsTable.querySelectorAll('tbody tr');
-    const transactionCheckboxes = transactionsTable.querySelectorAll('tbody input[type="checkbox"]');
-    selectAllCheckbox.addEventListener('click', () => {
-      const isChecked = selectAllCheckbox.checked;
-      transactionCheckboxes.forEach(checkbox => {
-        checkbox.checked = isChecked;
-      });
-    });
-    deleteButton.addEventListener('click', event => {
-      event.preventDefault();
-      const selectedIds = Array.from(transactionCheckboxes)
-        .filter(checkbox => checkbox.checked)
-        .map(checkbox => checkbox.value);
-      if (selectedIds.length === 0) {
-        alert("Please select at least one transaction to delete.");
-        return;
-      }
-      if (confirm("Are you sure you want to delete the selected transactions?")) {
-        fetch(`/delete_selected_transactions`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
-          body: new URLSearchParams({ transaction_ids: selectedIds }),
-        })
-          .then(response => {
-            if (response.ok) {
-              transactionRows.forEach(row => {
-                const checkbox = row.querySelector('input[type="checkbox"]');
-                if (checkbox && selectedIds.includes(checkbox.value)) {
-                  row.remove();
-                }
-              });
-              alert("Selected transactions deleted successfully!");
-            } else {
-              alert("Failed to delete transactions. Please try again.");
-            }
-          })
-          .catch(error => {
-            console.error("Error deleting transactions:", error);
-            alert("An error occurred while deleting transactions.");
-          });
-      }
-    });
-  }
-});
-
 document.addEventListener('DOMContentLoaded', () => {
   const sidebarLinks = document.querySelectorAll('.nav_link');
   const billsLink = document.getElementById('billsLink');
@@ -345,16 +292,46 @@ document.addEventListener("DOMContentLoaded", function () {
       }
   });
 });
+
 window.addEventListener('load', function () {
-  document.body.classList.add('sidebar-open'); // Open the sidebar by default
+  // Open the sidebar by default on page load
+  document.body.classList.add('sidebar-open'); // Add the 'sidebar-open' class to open the sidebar
+
+  // Check if the dashboard link exists and add 'active' class to it
   const dashboardLink = document.querySelector('#dashboardLink');
   if (dashboardLink) {
-      dashboardLink.classList.add('active'); // Add 'active' class to the dashboard link
+    dashboardLink.classList.add('active'); // Add 'active' class to the dashboard link
+  }
+
+  // On page load, show content if the dashboard link is active
+  const contentContainer = document.querySelector('.content-container'); // Main content container
+  if (dashboardLink && dashboardLink.classList.contains('active')) {
+    contentContainer.style.display = 'block';
+    contentContainer.classList.add('fade-in');
   }
 });
+
 document.addEventListener('DOMContentLoaded', () => {
-  const sidebar = document.querySelector('.sidebar');
-  const content = document.querySelector('.content');
-  sidebar.classList.add('open');  // Add the 'open' class to open the sidebar
-  content.classList.add('with-sidebar');  // Adjust content layout accordingly
+  const sidebarLinks = document.querySelectorAll('.nav_link');
+  const contentContainer = document.querySelector('.content-container'); // Main content container
+
+  // Default content state - hidden
+  contentContainer.style.display = 'none';
+
+  // Handle clicks on sidebar links
+  sidebarLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      sidebarLinks.forEach(link => link.classList.remove('active')); // Remove 'active' from all links
+      link.classList.add('active'); // Add 'active' to the clicked link
+
+      // Show content if the dashboard link is clicked
+      if (link.id === 'dashboardLink') {
+        contentContainer.style.display = 'block'; // Show content
+        contentContainer.classList.add('fade-in'); // Apply fade-in effect
+      } else {
+        contentContainer.classList.remove('fade-in'); // Remove fade effect
+        contentContainer.style.display = 'none'; // Hide content
+      }
+    });
+  });
 });

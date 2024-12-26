@@ -11,6 +11,7 @@
       <button id="sidebarToggle" class="sidebar-toggle">
         <i class="bx bx-menu"></i>
       </button>
+      <h1>Welcome, {{ username }}!</h1>
       <div class="search_bar">
         <input type="text" placeholder="Search" />
       </div>
@@ -23,6 +24,7 @@
             <span class="notification-badge" id="notificationCount">{{ upcoming_bills_count }}</span>
           {% endif %}
         </div>
+        <a href="{{ url_for('logout') }}">Logout</a>
         <img src="{{ url_for('static', filename='images/profile.jpg') }}" alt="" class="profile" />
       <div id="notificationModal" class="modal">
           <div class="modal-content">
@@ -85,8 +87,12 @@
               <div class="transaction-modal-content">
                   <span class="transaction-close-btn" onclick="closeTransactionModal()">&times;</span>
                   <form action="{{ url_for('add_transaction') }}" method="POST">
-                      <label for="cardNumber">Card Number:</label>
-                      <input type="text" id="cardNumber" name="cardNumber" placeholder="cardNumber" required>
+                    <select id="accountName" name="cardNumber" required>
+                      <option value="" disabled selected>Select an account</option>
+                      {% for account in accounts %}
+                      <option value="{{ account[0] }}">{{ account[1] }} ({{ account[0] }})</option>
+                      {% endfor %}
+                    </select>
                       <label for="transactionType">Transaction Type:</label>
                       <select id="transactionType" name="transactionType" required>
                           <option value="credit">Credit</option>
@@ -147,6 +153,128 @@
         </ul>
       </div>
     </nav>
+    <main class="content-container">
+     
+    
+      <!-- Accounts Section -->
+      <div id="accountsSummary" class="content-summary">
+        <h3>Your Accounts</h3>
+        {% if accounts %}
+        <table id="accountsTable">
+          <thead>
+            <tr>
+              <th>Card Number</th>
+              <th>Card Name</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for account in accounts %}
+            <tr data-card-number="{{ account[0] }}">
+              <td>{{ account[0] }}</td>
+              <td>{{ account[1] }}</td>
+              <td>{{ account[2] }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% else %}
+        <p class="no-accounts-message">No Accounts available. Add a new account to get started.</p>
+        {% endif %}
+      </div>
+    
+      <!-- Transactions Section -->
+      <div id="transactionsSummary" class="content-summary">
+        <h3>Your Transactions</h3>
+        <form method="POST" action="{{ url_for('delete_selected_transactions') }}">
+          {% if transactions %}
+          <table id="transactionsTable">
+            <thead>
+              <tr>
+                <th>Card Number</th>
+                <th>Goal</th>
+                <th>Transaction Type</th>
+                <th>Amount</th>
+                <th>Transaction Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for transaction in transactions %}
+              <tr>
+                <td>{{ transaction[1] }}</td>
+                <td>{{ transaction[2] }}</td>
+                <td>{{ transaction[3] }}</td>
+                <td>{{ transaction[4] }}</td>
+                <td>{{ transaction[5] }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          {% else %}
+          <p class="no-transactions-message">No transactions available. Add a new transaction to get started.</p>
+          {% endif %}
+        </form>
+      </div>
+    
+      <!-- Bills Section -->
+      <div id="billsSummary" class="content-summary">
+        <h3>Bills</h3>
+        {% if bills %}
+        <table id="billsTable">
+          <thead>
+            <tr>
+              <th>Bill Name</th>
+              <th>Item Description</th>
+              <th>Due Date</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for bill in bills %}
+            <tr>
+              <td>{{ bill[1] }}</td>
+              <td>{{ bill[2] }}</td>
+              <td>{{ bill[3] }}</td>
+              <td>{{ bill[4] }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% else %}
+        <p class="no-bills-message">No Bills available. Add a new bill to get started.</p>
+        {% endif %}
+      </div> 
+      <!-- Expenses Section -->
+      <div id="expensesSummary" class="content-summary">
+        <h2>Expense Breakdown by Category</h2>
+        {% if graph_url %}
+          <img src="data:image/png;base64,{{ graph_url }}" alt="Expenses Graph">
+        {% else %}
+          <p>No expenses data available for display.</p>
+        {% endif %}
+      </div>
+      <!-- Goals Section -->
+      <div id="goalsSummary" class="content-summary">
+        <h2>Your Financial Goals</h2>
+        {% if active_goal %}
+        <div class="goal">
+          <h3>{{ active_goal[0] }}</h3>
+          <p>Target Amount: ${{ active_goal[1] }}</p>
+          <p>Progress: ${{ active_goal[2] }} / ${{ active_goal[1] }}</p>
+          <p>Status: {{ 'Achieved' if active_goal[3] else 'In Progress' }}</p>
+          <div class="progress-bar-container">
+            <div class="progress-bar" style="width: {{ goal_progress }}%;"></div>
+          </div>
+          {% if goal_completed %}
+          <h4>Congratulations! You have achieved your goal!</h4>
+          {% endif %}
+        </div>
+        {% else %}
+        <p>No active goals.</p>
+        {% endif %}
+      </div>
+    </main>
+    
     <main class="content">
       <div id="expensesContent" class="expenses-content">
         <h2>Expense Breakdown by Category</h2>
@@ -193,38 +321,36 @@
           <table id="transactionsTable" border="1" cellspacing="0" cellpadding="5">
             <thead>
               <tr>
-                <th>
-                  <input type="checkbox" id="selectAll" onclick="toggleAll(this)">
-                </th>
-                <th>ID</th>
                 <th>Card Number</th>
                 <th>Goal</th>
                 <th>Transaction Type</th>
                 <th>Amount</th>
                 <th>Transaction Date</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
               {% for transaction in transactions %}
               <tr>
-                <td>
-                  <input type="checkbox" name="transaction_ids" value="{{ transaction[0] }}">
-                </td>
-                <td>{{ transaction[0] }}</td> 
                 <td>{{ transaction[1] }}</td> 
                 <td>{{ transaction[2] }}</td> 
                 <td>{{ transaction[3] }}</td> 
                 <td>{{ transaction[4] }}</td>
                 <td>{{ transaction[5] }}</td> 
+                <td>
+                  <form method="POST" action="{{ url_for('delete_selected_transactions') }}" style="display:inline;">
+                    <input type="hidden" name="transaction_id" value="{{ transaction[0] }}">
+                    <button type="submit" class="delete-button">Delete</button>
+                  </form>
+                </td>
               </tr>
               {% endfor %}
             </tbody>
           </table>
-          <button type="submit" class="delete-button">Delete</button> 
         {% else %}
           <p class="no-accounts-message">No transactions available. Add a new transaction to get started.</p>
         {% endif %}
-      </form>
+      </form>      
     </div>    
     <button id="openTransactionModalBtn" class="open-transaction-modal-btn" onclick="openTransactionModal()">Add Transaction</button>
     <div class="bill-content" id="billContent">
@@ -253,28 +379,33 @@
       {% else %}
           <p class="no-accounts-message">No Bills available. Add a new bills to get started.</p>
       {% endif %}
-    </div><!-- Goal form inside main content -->
+    </div>
     <div id="goalModal" class="goal-modal">
-      <div class="goal-modal-content">
-        <form action="{{ url_for('add_goal') }}" method="POST">
-          <label for="goal_name">Goal Name:</label>
-          <input type="text" name="goal_name" required>
-          <label for="target_amount">Target Amount:</label>
-          <input type="number" step="0.01" name="target_amount" required>
-          <button type="submit">Set Goal</button>
-        </form>
-      </div> 
-      {% if active_goal %}
-      <div id="goalSection" class="goal-section">
-          <h3>Current Goal</h3>
-          <p><strong>{{ active_goal[0] }}</strong></p>
-          <p>Target Amount: ${{ active_goal[1] }}</p>
-          <p>Progress: ${{ active_goal[2] }} / ${{ active_goal[1] }}</p>
-          <p>Status: {{ "Achieved" if active_goal[3] else "In Progress" }}</p>
-      </div>
-      {% else %}
-      <p>No active goals. Set a new one!</p>
-      {% endif %}
+      <h2>Your Financial Goals</h2>
+        {% if active_goal %}
+            <div class="goal">
+                <h3>{{ active_goal[0] }}</h3>
+                <p>Target Amount: ${{ active_goal[1] }}</p>
+                <p>Progress: ${{ active_goal[2] }} / ${{ active_goal[1] }}</p>
+                <p>Status: {{ 'Achieved' if active_goal[3] else 'In Progress' }}</p>
+                <!-- Progress Bar -->
+                <div class="progress-bar-container">
+                  <div class="progress-bar" style="width: {{ goal_progress }}%;"></div>
+                </div>
+                {% if goal_completed %}
+                <h4>Congratulations! You have achieved your goal!</h4>
+                {% endif %}
+            </div>
+        {% else %}
+            <p>No active goals. Set a new goal below!</p>
+            <form action="{{ url_for('set_goal') }}" method="POST">
+                <label for="goal_name">Goal Name:</label>
+                <input type="text" name="goal_name" required><br>
+                <label for="target_amount">Target Amount:</label>
+                <input type="number" name="target_amount" step="0.01" required><br>
+                <button type="submit">Set Goal</button>
+            </form>
+        {% endif %}
     </div>
     <button id="addBillBtn" class="add-btn">Add Bill</button>
     </main>

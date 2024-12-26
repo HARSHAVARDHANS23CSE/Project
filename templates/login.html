@@ -4,8 +4,14 @@
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body> 
+      <!-- Video Background -->
+      <div class="video-container">
+        <video autoplay muted loop>
+            <source src="{{ url_for('static', filename='videos/background.mp4') }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>  
     <div class="box">
-       
     <img src="{{ url_for('static', filename='images/user.png') }}" class="user">
         <h1>Login Here</h1>
         <form name="myform" method="POST" action="{{ url_for('login') }}">
@@ -30,11 +36,5 @@
         
     </div>
     
-</body>
-<style>
-    body {
-      background: url("{{ url_for('static', filename='images/back.jpg') }}") no-repeat center center fixed;
-      background-size: cover; /* Ensure the background image covers the entire viewport */
-    }
-</style>  
+</body> 
 </html>

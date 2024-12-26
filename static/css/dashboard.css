@@ -435,18 +435,6 @@ body {
   text-align: center;
 }
 
-/* Fade-in animation for content */
-@keyframes fadeIn {
-  from {
-      opacity: 0;
-      transform: translateY(10px);
-  }
-  to {
-      opacity: 1;
-      transform: translateY(0);
-  }
-}
-
 /* Table Styling */
 #dashboardContent table {
   width: 100%;
@@ -510,6 +498,19 @@ body {
   opacity: 1;
   visibility: visible;
 }
+
+/* Fade-in animation for content */
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: translateY(10px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
 /* Delete Button Styling */
 .delete-btn {
   background-color: #ff6f61; /* Soft red color */
@@ -540,11 +541,10 @@ body {
   display: none; /* Hidden by default */
   padding: 20px;
   border-radius: 10px;
-  background: linear-gradient(135deg, #6a11cb, #2575fc); /* Same gradient as the dashboard */
+  background: linear-gradient(135deg, #6a11cb, #2575fc); /* Gradient background */
   color: white; /* Text color */
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Shadow for depth */
   animation: fadeIn 0.5s ease-in-out; /* Animation for smooth appearance */
-  margin: 20px auto; /* Centered and with spacing */
 }
 
 /* Header Text */
@@ -552,7 +552,7 @@ body {
   margin-top: 0;
   font-size: 24px;
   text-align: center;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow for emphasis */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Shadow effect for the text */
 }
 
 /* Paragraph Text */
@@ -564,27 +564,25 @@ body {
 
 /* Table Styling */
 #transactionContent table {
-  width: 100%; /* Full width of the parent container */
-  margin: 20px 0; /* Add space around the table */
-  border-collapse: collapse; /* Remove gaps between table cells */
-  font-family: 'Arial', sans-serif;
-  font-size: 14px;
-  justify-content: center;
-  color: #333;
-  text-align: left; /* Align text to the left */
-  background-color: #fff; /* Ensure the table background is white */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add subtle shadow for effect */
-  border-radius: 8px; /* Slightly round the table edges */
-  overflow: hidden; /* Ensure radius works */
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: #ffffff;
+  color: #444;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* Table Header */
 #transactionContent table thead tr {
-  background-color: #6a11cb; /* Violet background consistent with dashboard */
+  background-color: #6a11cb; /* Violet background for header */
   color: #ffffff;
   font-weight: bold;
   font-size: 16px;
   text-align: left;
+  border-bottom: 3px solid #444; /* Add border at the bottom of header */
+  padding: 12px 15px;
 }
 
 /* Table Body */
@@ -605,15 +603,13 @@ body {
 #transactionContent table td {
   padding: 15px;
   text-align: left;
-  justify-content: center;
-  align-items: center;
 }
 
 /* Hover Effect */
 #transactionContent table tbody tr:hover {
-  background-color: #e2e2ff; /* Subtle violet tint for hover effect */
+  background-color: #ffddb4;
   color: #333333;
-  cursor: pointer;
+  cursor: pointer; /* Change cursor to indicate hover */
 }
 
 /* No Data Message */
@@ -1081,4 +1077,124 @@ body.sidebar-open .sidebar {
 }
 #goalModal p{
   text-align: center;
+}
+/* Style for the goal progress bar */
+.goal .progress-bar-container {
+  width: 100%;
+  height: 20px;
+  background-color: #e0e0e0;
+  border-radius: 10px;
+  margin-top: 10px;
+  overflow: hidden;
+}
+
+.goal .progress-bar {
+  height: 100%;
+  background-color: #4caf50; /* Green color for progress */
+  border-radius: 10px;
+  transition: width 0.3s ease-in-out;
+}
+
+/* Initially hide the content container */
+.content-container {
+  display: none; /* Hide content container by default */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin-left: 250px; /* Adjust based on sidebar width */
+  margin-top: 60px; /* Adjust based on navbar height */
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #f8f9fa; /* Light background for the content */
+  border-radius: 10px;
+  overflow-y: auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for the container */
+}
+
+/* Individual content section */
+.content-summary {
+  width: 80%;
+  max-width: 900px;
+  background: #ffffff; /* White background for content */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for each section */
+  margin-bottom: 20px;
+  padding: 20px;
+  text-align: center;
+  height: 300px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: #fafafa; /* Soft background color for each summary */
+  border-left: 5px solid #007bff; /* Blue left border for distinction */
+}
+
+.content-summary h2, .content-summary h3 {
+  color: #333; /* Dark gray for headings */
+}
+
+.content-summary p {
+  color: #666; /* Lighter gray for paragraph text */
+}
+
+/* Table styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for table */
+}
+
+thead {
+  background-color: #007bff; /* Blue background for table header */
+  color: #ffffff; /* White text for table header */
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+th {
+  font-weight: bold;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2; /* Light gray background for even rows */
+}
+
+tr:hover {
+  background-color: #e9ecef; /* Highlight row on hover */
+}
+
+.content-container::-webkit-scrollbar {
+  width: 10px;
+}
+
+.content-container::-webkit-scrollbar-thumb {
+  background: #888; 
+  border-radius: 5px;
+}
+
+.content-container::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+/* Handle small screens */
+@media (max-width: 768px) {
+  .content-container {
+    margin-left: 0; /* Sidebar likely hidden */
+    margin-top: 0; /* Navbar likely hidden */
+  }
+
+  .content-summary {
+    width: 95%; /* Full width for smaller screens */
+  }
 }
