@@ -93,16 +93,13 @@
                       <option value="{{ account[0] }}">{{ account[1] }} ({{ account[0] }})</option>
                       {% endfor %}
                     </select>
-                      <label for="transactionType">Transaction Type:</label>
                       <select id="transactionType" name="transactionType" required>
                           <option value="credit">Credit</option>
                           <option value="debit">Debit</option>
                       </select>
-                      <label for="amount">Amount:</label>
                       <input type="number" id="amount" name="amount" placeholder="amount" required>
                       <label for="transactionDate">Transaction Date:</label>
                       <input type="date" id="transactionDate" name="transactionDate" required>
-                      <label for="goal">Goal:</label>
                       <input type="text" id="goal" name="goal" placeholder="goal" required>
                       <input type="submit" value="Add Transaction">
                   </form>    
@@ -122,14 +119,10 @@
                 <h2>Add Bill</h2>
                 <form method="POST" action="{{ url_for('add_bill') }}">
                   <h3>Add New Bill</h3>
-                  <label for="bill_name">Bill Name:</label>
-                  <input type="text" id="bill_name" name="bill_name" required>
-                  <label for="item_description">Item Description:</label>
-                  <textarea id="item_description" name="item_description" required></textarea>
-                  <label for="due_date">Due Date:</label>
-                  <input type="date" id="due_date" name="due_date" required><br>
-                  <label for="amount">Amount:</label>
-                  <input type="number" step="0.01" id="amount" name="amount" required>
+                  <input type="text" id="bill_name" name="bill_name" placeholder="Bill Name" required>
+                  <textarea id="item_description" name="item_description" placeholder="Item Description"></textarea>
+                  <input type="date" id="due_date" name="due_date" placeholder="Due Date"><br>
+                  <input type="number" step="0.01" id="amount" name="amount" placeholder="Amount">
                   <button type="submit">Add Bill</button>
                 </form>
             </div>
@@ -154,9 +147,6 @@
       </div>
     </nav>
     <main class="content-container">
-     
-    
-      <!-- Accounts Section -->
       <div id="accountsSummary" class="content-summary">
         <h3>Your Accounts</h3>
         {% if accounts %}
@@ -182,8 +172,6 @@
         <p class="no-accounts-message">No Accounts available. Add a new account to get started.</p>
         {% endif %}
       </div>
-    
-      <!-- Transactions Section -->
       <div id="transactionsSummary" class="content-summary">
         <h3>Your Transactions</h3>
         <form method="POST" action="{{ url_for('delete_selected_transactions') }}">
@@ -215,8 +203,6 @@
           {% endif %}
         </form>
       </div>
-    
-      <!-- Bills Section -->
       <div id="billsSummary" class="content-summary">
         <h3>Bills</h3>
         {% if bills %}
@@ -244,7 +230,6 @@
         <p class="no-bills-message">No Bills available. Add a new bill to get started.</p>
         {% endif %}
       </div> 
-      <!-- Expenses Section -->
       <div id="expensesSummary" class="content-summary">
         <h2>Expense Breakdown by Category</h2>
         {% if graph_url %}
@@ -253,7 +238,6 @@
           <p>No expenses data available for display.</p>
         {% endif %}
       </div>
-      <!-- Goals Section -->
       <div id="goalsSummary" class="content-summary">
         <h2>Your Financial Goals</h2>
         {% if active_goal %}
@@ -262,9 +246,6 @@
           <p>Target Amount: ${{ active_goal[1] }}</p>
           <p>Progress: ${{ active_goal[2] }} / ${{ active_goal[1] }}</p>
           <p>Status: {{ 'Achieved' if active_goal[3] else 'In Progress' }}</p>
-          <div class="progress-bar-container">
-            <div class="progress-bar" style="width: {{ goal_progress }}%;"></div>
-          </div>
           {% if goal_completed %}
           <h4>Congratulations! You have achieved your goal!</h4>
           {% endif %}
@@ -274,7 +255,6 @@
         {% endif %}
       </div>
     </main>
-    
     <main class="content">
       <div id="expensesContent" class="expenses-content">
         <h2>Expense Breakdown by Category</h2>
@@ -388,10 +368,6 @@
                 <p>Target Amount: ${{ active_goal[1] }}</p>
                 <p>Progress: ${{ active_goal[2] }} / ${{ active_goal[1] }}</p>
                 <p>Status: {{ 'Achieved' if active_goal[3] else 'In Progress' }}</p>
-                <!-- Progress Bar -->
-                <div class="progress-bar-container">
-                  <div class="progress-bar" style="width: {{ goal_progress }}%;"></div>
-                </div>
                 {% if goal_completed %}
                 <h4>Congratulations! You have achieved your goal!</h4>
                 {% endif %}

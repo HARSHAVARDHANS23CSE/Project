@@ -56,30 +56,9 @@ def register():
         upswd1 = request.form['upswd1']
         upswd2 = request.form['upswd2']
 
-        if not uname1 or not email or not upswd1 or not upswd2:
-            flash("All fields are required!", 'error')
-            return render_template('register.html')
-
-        if upswd1 != upswd2:
-            flash("Passwords do not match!", 'error')
-            return render_template('register.html')
-
-        email_regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
-        if not re.match(email_regex, email):
-            flash("Invalid email format!", 'error')
-            return render_template('register.html')
-
         conn = get_db_connection()
         cursor = conn.cursor()
-        cursor.execute("SELECT email FROM register WHERE email = %s LIMIT 1", (email,))
-        existing_email = cursor.fetchone()
-
-        if existing_email:
-            flash("This email is already registered!", 'error')
-            cursor.close()
-            conn.close()
-            return render_template('register.html')
-
+       
         cursor.execute("INSERT INTO register (uname1, email, upswd1, upswd2) VALUES (%s, %s, %s, %s)",
                        (uname1, email, upswd1, upswd2))
         conn.commit()
@@ -97,10 +76,6 @@ def login():
     if request.method == 'POST':
         uname1 = request.form['uname1']
         upswd1 = request.form['upswd1']
-
-        if not uname1 or not upswd1:
-            flash("Username and Password are required.", 'error')
-            return render_template('login.html')
 
         conn = get_db_connection()
         cursor = conn.cursor()

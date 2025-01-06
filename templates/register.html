@@ -15,19 +15,19 @@
 
         <h1>Register Here</h1>
 
-        <form name="myform2" method="POST" action="{{ url_for('register') }}">
+        <form name="myform2" method="POST" action="{{ url_for('register') }}" onsubmit="validateRegistrationForm(event)">
 
             <p>Username</p>
-            <input type="text" name="uname1" placeholder="Enter Username" required="">
+            <input type="text" name="uname1" placeholder="Enter Username" >
 
             <p>Email</p>
-            <input type="Email" name="email" placeholder="Enter email id" required="">
+            <input type="Email" name="email" placeholder="Enter email id" >
 
             <p>Password</p>
-            <input type="password" name="upswd1" placeholder="Enter Password" required="">
+            <input type="password" name="upswd1" placeholder="Enter Password" >
 
             <p>Retype Password</p>
-            <input type="password" name="upswd2" placeholder="Re-Enter Password" required="">
+            <input type="password" name="upswd2" placeholder="Re-Enter Password">
 
             <input type="submit" name="" value="Register">
 
@@ -48,5 +48,50 @@
     </div>
 
 </body>
+<script>
+    // Function to validate the registration form
+    function validateRegistrationForm(event) {
+        event.preventDefault(); // Prevent form submission for validation
+
+        const username = document.myform2.uname1.value.trim();
+        const email = document.myform2.email.value.trim();
+        const password = document.myform2.upswd1.value;
+        const confirmPassword = document.myform2.upswd2.value;
+        let errorMessage = "";
+
+        // Username validation
+        if (!username) {
+            errorMessage += "Username is required.\n";
+        }
+
+        // Email validation
+        if (!email) {
+            errorMessage += "Email is required.\n";
+        } else if (!/^\S+@\S+\.\S+$/.test(email)) {
+            errorMessage += "Enter a valid email address.\n";
+        }
+
+        // Password validation
+        if (!password) {
+            errorMessage += "Password is required.\n";
+        } else if (password.length < 6) {
+            errorMessage += "Password must be at least 6 characters long.\n";
+        }
+
+        // Confirm Password validation
+        if (!confirmPassword) {
+            errorMessage += "Please confirm your password.\n";
+        } else if (password !== confirmPassword) {
+            errorMessage += "Passwords do not match.\n";
+        }
+
+        // If there are errors, show them. Otherwise, submit the form.
+        if (errorMessage) {
+            alert(errorMessage);
+        } else {
+            document.forms["myform2"].submit();
+        }
+    }
+</script>
 </head>
 </html>

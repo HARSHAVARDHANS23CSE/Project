@@ -1,16 +1,19 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
+
 :root {
   --white-color: #fff;
   --blue-color: #4070f4;
   --grey-color: #707070;
   --grey-color-light: #aaa;
 }
+
 body {
   background-color: #f4f4f4;
   color: #333;
@@ -19,12 +22,14 @@ body {
 body.dark {
   background-color: #333;
 }
+
 body.dark {
   --white-color: #333;
   --blue-color: #fff;
   --grey-color: #f2f2f2;
   --grey-color-light: #aaa;
 }
+
 body.dark {
   --primary-bg-color: #0D1B2A;
   --secondary-bg-color: #000000;
@@ -40,6 +45,7 @@ body.dark {
   background-color: var(--secondary-bg-color);
   color: var(--text-color);
 }
+
 .navbar {
   position: fixed;
   top: 0;
@@ -53,6 +59,7 @@ body.dark {
   z-index: 1000;
   box-shadow: 0 0 2px var(--grey-color-light);
 }
+
 .logo_item {
   display: flex;
   align-items: center;
@@ -61,16 +68,19 @@ body.dark {
   font-weight: 500;
   color: var(--blue-color);
 }
+
 .navbar img {
   width: 35px;
   height: 35px;
   border-radius: 50%;
 }
+
 .search_bar {
   height: 47px;
   max-width: 430px;
   width: 100%;
 }
+
 .search_bar input {
   height: 100%;
   width: 100%;
@@ -105,16 +115,19 @@ body.dark {
   font-weight: bold;
   display: inline-block;
 }
+
 .navbar_content {
   display: flex;
   align-items: center;
   column-gap: 25px;
 }
+
 .navbar_content i {
   cursor: pointer;
   font-size: 20px;
   color: var(--grey-color);
 }
+
 .sidebar {
   background-color: var(--white-color);
   width: 220px;
@@ -128,38 +141,46 @@ body.dark {
   box-shadow: 0 0 1px var(--grey-color-light);
   transition: all 0.5s ease;
 }
+
 .menu_content {
   position: relative;
 }
+
 .menu_title {
   margin: 15px 0;
   padding: 0 20px;
   font-size: 18px;
 }
+
 .menu_items {
   padding: 0;
   list-style: none;
 }
+
 .nav_link {
   display: flex;
   align-items: center;
   text-decoration: none;
   padding: 10px 20px;
-  width: 100%; /* Ensure full width is clickable */
+  width: 100%;
   color: inherit;
   cursor: pointer;
 }
+
 .nav_link.active {
-  background: var(--blue-color); /* Background for the entire link */
+  background: var(--blue-color);
 }
+
 .nav_link.active .navlink_icon i,
 .nav_link.active .navlink {
-  color: var(--white-color); /* Change icon and text color */
+  color: var(--white-color);
 }
+
 .nav_link:hover {
   background: var(--blue-color);
   color: var(--white-color);
 }
+
 .navlink_icon {
   position: relative;
   font-size: 22px;
@@ -169,6 +190,7 @@ body.dark {
   text-align: center;
   border-radius: 6px;
 }
+
 .navlink_icon::before {
   content: "";
   position: absolute;
@@ -176,9 +198,11 @@ body.dark {
   width: calc(100% + 100px);
   left: -20px;
 }
+
 .navlink_icon:hover {
   background: var(--blue-color);
 }
+
 .sidebar .nav_link {
   display: flex;
   align-items: center;
@@ -189,13 +213,16 @@ body.dark {
   color: var(--grey-color);
   white-space: nowrap;
 }
+
 .sidebar.close .navlink {
   display: none;
 }
+
 .nav_link:hover {
   color: var(--white-color);
   background: var(--blue-color);
 }
+
 .sidebar.close .nav_link:hover {
   background: var(--white-color);
 }
@@ -205,8 +232,8 @@ body.dark {
   background-color: var(--blue-color);
   color: var(--white-color);
   padding: 10px 20px;
-  display:flex;
-  margin:0 auto;
+  display: flex;
+  margin: 0 auto;
   border: none;
   border-radius: 50px;
   cursor: pointer;
@@ -216,10 +243,11 @@ body.dark {
 .btn-primary:hover {
   background-color: var(--grey-color);
 }
+
 .modal {
   display: none;
-  margin:auto;
-  position:fixed;
+  margin: auto;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -228,6 +256,7 @@ body.dark {
   justify-content: center;
   align-items: center;
 }
+
 .modal-content {
   background-color: var(--white-color);
   padding: 20px;
@@ -235,29 +264,30 @@ body.dark {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   max-width: max-content;
 }
+
 .bill-modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  display: none;
+  position: fixed;
+  z-index: 1;
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  background-color: rgba(0, 0, 0, 0.4); /* Black background with opacity */
-  overflow: auto; /* Enable scroll if needed */
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  overflow: auto;
 }
 
 .bill-modal-content {
   background-color: #fefefe;
-  margin: auto; /* Center horizontally */
+  margin: auto;
   padding: 20px;
   border: 1px solid #888;
   width: 80%;
   max-width: 500px;
   border-radius: 10px;
   position: relative;
-  top: 50%; /* Vertically center */
-  transform: translateY(-50%); /* Adjust for perfect vertical centering */
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .close-btn {
@@ -267,27 +297,31 @@ body.dark {
   font-size: 24px;
   cursor: pointer;
 }
+
 form {
   display: flex;
   flex-direction: column;
-  gap: -10px; 
+  gap: -10px;
   max-width: 400px;
-  margin: 0 auto; 
+  margin: 0 auto;
 }
 
 label {
-  font-weight:bolder;
+  font-weight: bolder;
 }
 
-input, button {
-  padding:1px;
+input,
+button {
+  padding: 1px;
   font-size: 16px;
 }
+
 img {
   width: 100%;
-  max-width:300px; 
+  max-width: 300px;
   height: auto;
 }
+
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
@@ -296,13 +330,13 @@ body {
 .content {
   margin-left: 250px;
   padding: 20px;
-  padding-top: calc(70px + 2vw); 
+  padding-top: calc(70px + 2vw);
   background-color: #f4f4f4;
   min-height: 100vh;
 }
 
 .add-account-btn {
-  display: none; 
+  display: none;
   margin: 20px 0;
   padding: 15px 30px;
   background-color: #e63946;
@@ -321,18 +355,19 @@ body {
 
 @media (max-width: 1024px) {
   .content {
-      margin-left: 0;
-      padding-top: calc(60px + 1.5vw); 
+    margin-left: 0;
+    padding-top: calc(60px + 1.5vw);
   }
 }
 
 @media (max-width: 768px) {
   .add-account-btn {
-      margin: 20px 0;
-      width: 100%;
-      padding: 12px;
+    margin: 20px 0;
+    width: 100%;
+    padding: 12px;
   }
 }
+
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
@@ -361,25 +396,26 @@ body {
   color: white;
   font-size: 24px;
   cursor: pointer;
-  margin: 0; 
+  margin: 0;
 }
 
 .sidebar {
   position: fixed;
   top: 0;
-  left: -250px; 
+  left: -250px;
   width: 250px;
   height: 100%;
   background-color: #333;
   color: white;
   overflow-y: auto;
-  transition: left 0.3s ease; 
+  transition: left 0.3s ease;
   z-index: 999;
 }
 
 .sidebar.open {
-  left: 0; 
+  left: 0;
 }
+
 .sidebar .menu {
   list-style: none;
   padding: 0;
@@ -407,26 +443,27 @@ body {
   flex-grow: 1;
   transition: margin-left 0.3s ease;
 }
+
 .content.with-sidebar {
-  margin-left: 250px; 
-}
-/* Dashboard Content Styling */
-#dashboardContent {
-  display: none; /* Hidden by default */
-  padding: 20px;
-  border-radius: 10px;
-  background: linear-gradient(135deg, #6a11cb, #2575fc); /* Gradient background */
-  color: white; /* Text color */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Shadow for depth */
-  animation: fadeIn 0.5s ease-in-out; /* Animation for smooth appearance */
+  margin-left: 250px;
 }
 
-/* Add some margin and spacing for text */
+#dashboardContent {
+  display: none;
+  padding: 20px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+
 #dashboardContent h3 {
   margin-top: 0;
   font-size: 24px;
   text-align: center;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Shadow effect for the text */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 #dashboardContent p {
@@ -435,7 +472,7 @@ body {
   text-align: center;
 }
 
-/* Table Styling */
+
 #dashboardContent table {
   width: 100%;
   border-collapse: collapse;
@@ -447,18 +484,18 @@ body {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Table Header Styling */
+
 #dashboardContent table thead tr {
-  background-color: #6a11cb; /* Violet background for header */
+  background-color: #6a11cb;
   color: #ffffff;
   font-weight: bold;
   font-size: 16px;
   text-align: left;
-  border-bottom: 3px solid #444; /* Add border at the bottom of header */
+  border-bottom: 3px solid #444;
   padding: 12px 15px;
 }
 
-/* Table Body Styling */
+
 #dashboardContent table tbody tr {
   border-bottom: 1px solid #dddddd;
 }
@@ -471,21 +508,21 @@ body {
   background-color: #f1f1f1;
 }
 
-/* Table Data Styling */
+
 #dashboardContent table th,
 #dashboardContent table td {
   padding: 15px;
   text-align: left;
 }
 
-/* Table Hover Effect */
+
 #dashboardContent table tbody tr:hover {
   background-color: #ffddb4;
   color: #333333;
-  cursor: pointer; /* Change cursor to indicate hover */
+  cursor: pointer;
 }
 
-/* No Data Message Styling */
+
 #dashboardContent p {
   font-size: 18px;
   color: #ffffff;
@@ -493,76 +530,76 @@ body {
   margin-top: 20px;
 }
 
-/* Visible class for fade-in effect */
+
 #dashboardContent.visible {
   opacity: 1;
   visibility: visible;
 }
 
-/* Fade-in animation for content */
+
 @keyframes fadeIn {
   from {
-      opacity: 0;
-      transform: translateY(10px);
+    opacity: 0;
+    transform: translateY(10px);
   }
+
   to {
-      opacity: 1;
-      transform: translateY(0);
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-/* Delete Button Styling */
 .delete-btn {
-  background-color: #ff6f61; /* Soft red color */
-  color: #ffffff; /* White text */
+  background-color: #ff6f61;
+  color: #ffffff;
   border: none;
   border-radius: 5px;
   padding: 8px 12px;
   font-size: 14px;
   cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Shadow for depth */
-  transition: all 0.3s ease; /* Smooth hover animation */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
 }
 
-/* Hover Effect */
+
 .delete-btn:hover {
-  background-color: #ff4c3b; /* Slightly darker red */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Increased shadow on hover */
-  transform: translateY(-2px); /* Lift effect */
+  background-color: #ff4c3b;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
 }
 
-/* Active/Pressed State */
+
 .delete-btn:active {
-  background-color: #e04330; /* Darker red for active state */
-  transform: translateY(1px); /* Button press effect */
+  background-color: #e04330;
+  transform: translateY(1px);
 }
-/* Transaction Content Styling */
+
 #transactionContent {
-  display: none; /* Hidden by default */
+  display: none;
   padding: 20px;
   border-radius: 10px;
-  background: linear-gradient(135deg, #6a11cb, #2575fc); /* Gradient background */
-  color: white; /* Text color */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Shadow for depth */
-  animation: fadeIn 0.5s ease-in-out; /* Animation for smooth appearance */
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.5s ease-in-out;
 }
 
-/* Header Text */
+
 #transactionContent h3 {
   margin-top: 0;
   font-size: 24px;
   text-align: center;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Shadow effect for the text */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-/* Paragraph Text */
+
 #transactionContent p {
   font-size: 18px;
   margin: 10px 0;
   text-align: center;
 }
 
-/* Table Styling */
+
 #transactionContent table {
   width: 100%;
   border-collapse: collapse;
@@ -574,18 +611,18 @@ body {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Table Header */
+
 #transactionContent table thead tr {
-  background-color: #6a11cb; /* Violet background for header */
+  background-color: #6a11cb;
   color: #ffffff;
   font-weight: bold;
   font-size: 16px;
   text-align: left;
-  border-bottom: 3px solid #444; /* Add border at the bottom of header */
+  border-bottom: 3px solid #444;
   padding: 12px 15px;
 }
 
-/* Table Body */
+
 #transactionContent table tbody tr {
   border-bottom: 1px solid #dddddd;
 }
@@ -598,21 +635,21 @@ body {
   background-color: #f1f1f1;
 }
 
-/* Table Data */
+
 #transactionContent table th,
 #transactionContent table td {
   padding: 15px;
   text-align: left;
 }
 
-/* Hover Effect */
+
 #transactionContent table tbody tr:hover {
   background-color: #ffddb4;
   color: #333333;
-  cursor: pointer; /* Change cursor to indicate hover */
+  cursor: pointer;
 }
 
-/* No Data Message */
+
 #transactionContent p {
   font-size: 18px;
   color: #ffffff;
@@ -620,7 +657,7 @@ body {
   margin-top: 20px;
 }
 
-/* Visible Class */
+
 #transactionContent.visible {
   opacity: 1;
   visibility: visible;
@@ -629,34 +666,35 @@ body {
 
 @media (max-width: 768px) {
   .add-transaction-btn {
-      margin: 20px 0;
-      width: 100%;
-      padding: 12px;
+    margin: 20px 0;
+    width: 100%;
+    padding: 12px;
   }
 }
+
 .transaction-modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  display: none;
+  position: fixed;
+  z-index: 1;
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  background-color: rgba(0, 0, 0, 0.4); /* Black background with opacity */
-  overflow: auto; /* Enable scroll if needed */
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  overflow: auto;
 }
 
 .transaction-modal-content {
   background-color: #fefefe;
-  margin: auto; /* Center horizontally */
+  margin: auto;
   padding: 20px;
   border: 1px solid #888;
   width: 80%;
   max-width: 500px;
   border-radius: 10px;
   position: relative;
-  top: 50%; /* Vertically center */
-  transform: translateY(-50%); /* Adjust for perfect vertical centering */
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .transaction-close-btn {
@@ -673,9 +711,9 @@ body {
   cursor: pointer;
 }
 
-/* Styles for Open Transaction Button */
+
 .open-transaction-modal-btn {
-  display: none; 
+  display: none;
   margin: 20px 0;
   padding: 15px 30px;
   background-color: #e63946;
@@ -690,42 +728,42 @@ body {
   background-color: #c62828;
 }
 
-/* Delete Button Styling */
+
 .delete-button {
-    margin-top: 10px;
-    background-color: #f44336; /* Red button */
-    color: white; /* White text */
-    padding: 10px 20px; /* Add padding */
-    border: none; /* Remove borders */
-    border-radius: 5px; /* Slightly round the edges */
-    cursor: pointer; /* Pointer cursor */
-    font-size: 14px;
-    transition: background-color 0.3s ease; /* Smooth transition */
+  margin-top: 10px;
+  background-color: #f44336;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
 }
 
 .delete-button:hover {
-    background-color: #d32f2f; /* Darker red on hover */
+  background-color: #d32f2f;
 }
 
-/* Expenses Section Container */
+
 .expenses-content {
-  display: none; /* Hidden by default */
+  display: none;
   padding: 20px;
   border-radius: 10px;
-  background: linear-gradient(135deg, #6a11cb, #2575fc); /* Same gradient as the dashboard */
-  color: white; /* Text color */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Shadow for depth */
-  animation: fadeIn 0.5s ease-in-out; /* Animation for smooth appearance */
-  margin: 20px auto; /* Centered and with spacing */
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.5s ease-in-out;
+  margin: 20px auto;
 }
 
-/* Fade-in effect for visible state */
+
 .expenses-content.fade-in {
-  display: block; /* Show when active */
-  opacity: 1;     /* Fully visible */
+  display: block;
+  opacity: 1;
 }
 
-/* Styling the heading */
+
 .expenses-content h2 {
   font-size: 24px;
   font-weight: bold;
@@ -734,7 +772,7 @@ body {
   color: #fefefe;
 }
 
-/* Styling the paragraph or alternative text */
+
 .expenses-content p {
   color: #fefefe;
   font-size: 18px;
@@ -742,26 +780,26 @@ body {
   text-align: center;
 }
 
-/* Styling the image (if graph is displayed) */
+
 .expenses-content img {
   display: block;
-  max-width: 70%; /* Responsive image */
-  margin: 0 auto;  /* Center the image */
+  max-width: 70%;
+  margin: 0 auto;
   border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for images */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-/* General styles for hiding content */
+
 .bill-modal,
 .bill-content,
 .add-btn {
-  display: none; /* Hidden by default */
+  display: none;
 }
 
 .bill-modal.visible,
 .bill-content.visible,
 .add-btn.visible {
-  display: block; /* Visible when 'visible' class is added */
-  animation: fadeIn 0.3s ease-in-out; /* Smooth fade-in animation */
+  display: block;
+  animation: fadeIn 0.3s ease-in-out;
 }
 
 
@@ -775,10 +813,10 @@ body {
 }
 
 .bill-modal-content .close-btn:hover {
-  color: #ff0000; /* Highlight close button on hover */
+  color: #ff0000;
 }
 
-/* Bill content container */
+
 .bill-content {
   margin: 20px 0;
   padding: 15px;
@@ -788,26 +826,26 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.bill-content h3{
-  color:#fefefe;
+.bill-content h3 {
+  color: #fefefe;
   margin-top: 0;
   font-size: 24px;
   text-align: center;
 }
 
-.bill-content p{
-  color:#fefefe;
+.bill-content p {
+  color: #fefefe;
   font-size: 18px;
   margin: 10px 0;
   text-align: center;
 }
 
-/* Add button */
+
 .add-btn {
-  display: none; /* Hidden by default */
+  display: none;
   margin: 15px 0;
   padding: 10px 16px;
-  background-color: #d32f2f; 
+  background-color: #d32f2f;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -825,16 +863,17 @@ body {
     opacity: 0;
     transform: scale(0.95);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
   }
 }
 
-/* Responsive adjustments */
+
 @media (max-width: 768px) {
   .bill-modal {
-    width: 90%; /* Use most of the viewport width for smaller screens */
+    width: 90%;
   }
 
   .bill-content {
@@ -842,28 +881,28 @@ body {
   }
 
   .add-btn {
-    width: 100%; /* Full-width button for better usability */
+    width: 100%;
   }
 }
-/* Table Styling */
+
 #billsTable {
-  width: 100%; /* Full width of the parent container */
-  margin: 20px 0; /* Add space around the table */
-  border-collapse: collapse; /* Remove gaps between table cells */
+  width: 100%;
+  margin: 20px 0;
+  border-collapse: collapse;
   font-family: 'Arial', sans-serif;
   font-size: 14px;
   justify-content: center;
   color: #333;
-  text-align: left; /* Align text to the left */
-  background-color: #fff; /* Ensure the table background is white */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add subtle shadow for effect */
-  border-radius: 8px; /* Slightly round the table edges */
-  overflow: hidden; /* Ensure radius works */
+  text-align: left;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
 }
 
-/* Table Header Styling */
+
 #billsTable thead tr {
-  background-color: #6a11cb; /* Violet background consistent with dashboard */
+  background-color: #6a11cb;
   color: white;
   font-weight: bold;
   font-size: 16px;
@@ -871,34 +910,34 @@ body {
   padding: 12px 15px;
 }
 
-/* Table Body Styling */
+
 #billsTable tbody tr {
-  border-bottom: 1px solid #ddd; /* Add border between rows */
+  border-bottom: 1px solid #ddd;
 }
 
 #billsTable tbody tr:nth-of-type(odd) {
-  background-color: #f9f9f9; /* Alternate row colors */
+  background-color: #f9f9f9;
 }
 
 #billsTable tbody tr:nth-of-type(even) {
-  background-color: #f1f1f1; /* Lighter background for even rows */
+  background-color: #f1f1f1;
 }
 
-/* Table Data Styling */
+
 #billsTable th,
 #billsTable td {
   padding: 12px 15px;
   text-align: left;
 }
 
-/* Table Hover Effect */
+
 #billsTable tbody tr:hover {
-  background-color: #e2f7e1; /* Light green hover effect */
+  background-color: #e2f7e1;
   color: #333333;
-  cursor: pointer; /* Change cursor to indicate hover */
+  cursor: pointer;
 }
 
-/* No Data Message Styling */
+
 #billsTable tbody tr.no-data td {
   text-align: center;
   padding: 20px;
@@ -906,23 +945,24 @@ body {
   color: #888;
 }
 
-/* Responsive adjustments */
+
 @media (max-width: 768px) {
   #billsTable {
-    font-size: 12px; /* Smaller font size for mobile screens */
+    font-size: 12px;
   }
 
   #billsTable th,
   #billsTable td {
-    padding: 10px; /* Adjust padding for smaller screens */
+    padding: 10px;
   }
 
   #billsTable thead tr {
-    font-size: 14px; /* Smaller font size for headers */
+    font-size: 14px;
   }
 }
+
 .modal {
-  display: none; /* Hidden by default */
+  display: none;
   position: fixed;
   z-index: 1000;
   left: 0;
@@ -930,22 +970,22 @@ body {
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0, 0, 0, 0.7); /* Dark overlay */
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 .modal-content {
-  background-color: #fff; /* Bright white for better contrast */
-  margin: 10% auto; /* Centered vertically */
+  background-color: #fff;
+  margin: 10% auto;
   padding: 20px;
   border: 1px solid #ddd;
   width: 50%;
   border-radius: 10px;
-  color: #333; /* Dark text color for contrast */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+  color: #333;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .modal-content h3 {
-  color: #444; /* Slightly darker heading */
+  color: #444;
   font-size: 1.5em;
   margin-bottom: 10px;
   text-align: center;
@@ -957,7 +997,7 @@ body {
 }
 
 .modal-content li {
-  background-color: #f9f9f9; /* Light background for list items */
+  background-color: #f9f9f9;
   border: 1px solid #ddd;
   border-radius: 5px;
   padding: 10px;
@@ -966,11 +1006,11 @@ body {
 }
 
 .modal-content li:hover {
-  background-color: #f1f1f1; /* Slight hover effect */
+  background-color: #f1f1f1;
 }
 
 .close-button {
-  color: #888; /* Lighter close button color */
+  color: #888;
   float: right;
   font-size: 1.5em;
   font-weight: bold;
@@ -979,7 +1019,7 @@ body {
 }
 
 .close-button:hover {
-  color: #000; /* Darker on hover for visibility */
+  color: #000;
 }
 
 .notification-badge {
@@ -999,27 +1039,27 @@ body {
 }
 
 body.sidebar-open .sidebar {
-  /* Style to make the sidebar visible when open */
-  width: 250px; /* Adjust based on your design */
+
+  width: 250px;
 }
 
 .sidebar .nav_link.active {
-  background-color: #007bff; /* Active link color */
-  color: white; /* Text color when active */
+  background-color: #007bff;
+  color: white;
 }
 
 .sidebar.open {
-  width: 250px; /* or whatever width your sidebar should have */
+  width: 250px;
   transition: width 0.3s ease;
 }
 
 .content.with-sidebar {
-  margin-left: 250px; /* Adjust this based on the sidebar width */
+  margin-left: 250px;
   transition: margin-left 0.3s ease;
 }
-/* Hide the goal form by default */
+
 .goal-modal {
-  display: none; /* Hide the form */
+  display: none;
   background-color: #f9f9f9;
   padding: 20px;
   border-radius: 8px;
@@ -1069,94 +1109,80 @@ body.sidebar-open .sidebar {
   background-color: #45a049;
 }
 
-/* Add responsiveness */
+
 @media (max-width: 768px) {
   .goal-modal {
     width: 90%;
   }
 }
-#goalModal p{
+
+#goalModal p {
   text-align: center;
 }
-/* Style for the goal progress bar */
-.goal .progress-bar-container {
-  width: 100%;
-  height: 20px;
-  background-color: #e0e0e0;
-  border-radius: 10px;
-  margin-top: 10px;
-  overflow: hidden;
-}
 
-.goal .progress-bar {
-  height: 100%;
-  background-color: #4caf50; /* Green color for progress */
-  border-radius: 10px;
-  transition: width 0.3s ease-in-out;
-}
-
-/* Initially hide the content container */
 .content-container {
-  display: none; /* Hide content container by default */
+  display: none;
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  margin-left: 250px; /* Adjust based on sidebar width */
-  margin-top: 60px; /* Adjust based on navbar height */
+  margin-left: 250px;
+  margin-top: 60px;
   padding: 20px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: #f8f9fa; /* Light background for the content */
+  background: #f8f9fa;
   border-radius: 10px;
   overflow-y: auto;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for the container */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Individual content section */
+
 .content-summary {
   width: 80%;
   max-width: 900px;
-  background: #ffffff; /* White background for content */
+  background: #ffffff;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for each section */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
   padding: 20px;
   text-align: center;
   height: 300px;
   overflow-y: auto;
   overflow-x: hidden;
-  background-color: #fafafa; /* Soft background color for each summary */
-  border-left: 5px solid #007bff; /* Blue left border for distinction */
+  background-color: #fafafa;
+  border-left: 5px solid #007bff;
 }
 
-.content-summary h2, .content-summary h3 {
-  color: #333; /* Dark gray for headings */
+.content-summary h2,
+.content-summary h3 {
+  color: #333;
 }
 
 .content-summary p {
-  color: #666; /* Lighter gray for paragraph text */
+  color: #666;
 }
 
-/* Table styling */
+
 table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 10px;
   background-color: #ffffff;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for table */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 thead {
-  background-color: #007bff; /* Blue background for table header */
-  color: #ffffff; /* White text for table header */
+  background-color: #007bff;
+  color: #ffffff;
 }
 
-th, td {
+th,
+td {
   padding: 12px;
   text-align: left;
   border: 1px solid #ddd;
@@ -1167,11 +1193,11 @@ th {
 }
 
 tr:nth-child(even) {
-  background-color: #f2f2f2; /* Light gray background for even rows */
+  background-color: #f2f2f2;
 }
 
 tr:hover {
-  background-color: #e9ecef; /* Highlight row on hover */
+  background-color: #e9ecef;
 }
 
 .content-container::-webkit-scrollbar {
@@ -1179,22 +1205,22 @@ tr:hover {
 }
 
 .content-container::-webkit-scrollbar-thumb {
-  background: #888; 
+  background: #888;
   border-radius: 5px;
 }
 
 .content-container::-webkit-scrollbar-thumb:hover {
-  background: #555; 
+  background: #555;
 }
 
-/* Handle small screens */
+
 @media (max-width: 768px) {
   .content-container {
-    margin-left: 0; /* Sidebar likely hidden */
-    margin-top: 0; /* Navbar likely hidden */
+    margin-left: 0;
+    margin-top: 0;
   }
 
   .content-summary {
-    width: 95%; /* Full width for smaller screens */
+    width: 95%;
   }
 }

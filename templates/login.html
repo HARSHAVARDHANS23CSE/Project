@@ -1,40 +1,62 @@
 <!DOCTYPE html>
 <head>
-<title>Login Form Design</title>
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Login Form Design</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <script>
+        function validateLoginForm(event) {
+            event.preventDefault();
+            const username = document.myform.uname1.value.trim();
+            const password = document.myform.upswd1.value;
+            let errorMessage = "";
+            if (!username) {
+                errorMessage += "Username is required.\n";
+            }
+            if (!password) {
+                errorMessage += "Password is required.\n";
+            } else if (password.length < 6) {
+                errorMessage += "Password must be at least 6 characters long.\n";
+            }
+            if (errorMessage) {
+                alert(errorMessage);
+            } else {
+                document.forms["myform"].submit();
+            }
+        }
+    </script>
 </head>
-<body> 
-      <!-- Video Background -->
-      <div class="video-container">
+
+<body>
+    <div class="video-container">
         <video autoplay muted loop>
             <source src="{{ url_for('static', filename='videos/background.mp4') }}" type="video/mp4">
             Your browser does not support the video tag.
         </video>
-    </div>  
+    </div>
     <div class="box">
-    <img src="{{ url_for('static', filename='images/user.png') }}" class="user">
+        <img src="{{ url_for('static', filename='images/user.png') }}" class="user">
         <h1>Login Here</h1>
-        <form name="myform" method="POST" action="{{ url_for('login') }}">
+        <form name="myform" method="POST" action="{{ url_for('login') }}" onsubmit="validateLoginForm(event)">
             <p>Username</p>
-            <input type="text" id="uname1" name="uname1" placeholder="Enter Username " required="">
+            <input type="text" id="uname1" name="uname1" placeholder="Enter Username ">
             <p>Password</p>
-            <input type="password" id="upswd1" name="upswd1" placeholder="Enter Password" required="">
+            <input type="password" id="upswd1" name="upswd1" placeholder="Enter Password">
             <input type="submit" name="" value="Login">
             <br><br>
             {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
             <div class="flash-messages">
-            {% for category, message in messages %}
+                {% for category, message in messages %}
                 <div class="{{ category }}">{{ message }}</div>
-            {% endfor %}
+                {% endfor %}
             </div>
             {% endif %}
             {% endwith %}
             <br><br>
             <a href="{{ url_for('register') }}">Register for new account ?</a>
         </form>
-        
+
     </div>
-    
-</body> 
+
+</body>
+
 </html>
